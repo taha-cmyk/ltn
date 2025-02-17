@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LTN - Latest Tech News</title>
+    <link>https://latest-tech.netlify.app/</link>
+    <description>Recent content on LTN - Latest Tech News</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://latest-tech.netlify.app/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About LTN</title>
+      <link>https://latest-tech.netlify.app/about/</link>
+      <pubDate>Sun, 16 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>https://latest-tech.netlify.app/about/</guid>
+      <description>Welcome to Latest Tech News (LTN), your premier destination for technology news, reviews, and insights. We deliver accurate, timely, and in-depth coverage of the tech industry.&#xA;Our Mission Provide clear, unbiased technology news coverage Deliver in-depth product reviews and analysis Help readers understand complex tech topics Share expert insights on emerging technologies What We Cover Breaking tech news and updates Comprehensive gadget reviews Industry analysis and trends Innovation and startups Artificial Intelligence and Machine Learning Cybersecurity and privacy Follow us on social media:</description>
+    </item>
+  </channel>
+</rss>
