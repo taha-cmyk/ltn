@@ -1,0 +1,15 @@
+baseURL = "https://ltn.com"
+languageCode = "en-us"
+title = "LTN - Latest Tech News"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  brand = "brands"
+  price_range = "price_ranges"
+
+
+
+[params]
+  description = "Latest Technology News and Insights"
+  author = "LTN Team"

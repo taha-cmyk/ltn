@@ -1,0 +1,11 @@
+- name: "John Doe"
+  position: "Editor in Chief"
+  image: "/images/team/john.jpg"
+
+- name: "Jane Smith"
+  position: "Senior Tech Writer"
+  image: "/images/team/jane.jpg"
+
+- name: "Mike Johnson"
+  position: "Tech Analyst"
+  image: "/images/team/mike.jpg"

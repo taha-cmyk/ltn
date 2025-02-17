@@ -1,0 +1,74 @@
+{{ define "main" }}
+<div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <header class="mb-12 text-center">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">Tech Blog</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Deep dives into technology trends, tutorials, and expert insights</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2">
+            {{ range .Paginator.Pages }}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                {{ with .Params.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-64 object-cover">
+                {{ end }}
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <time datetime="{{ .Date }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                        {{ with .Params.categories }}
+                        <span class="mx-2">•</span>
+                        <span>{{ delimit . ", " }}</span>
+                        {{ end }}
+                        {{ with .ReadingTime }}
+                        <span class="mx-2">•</span>
+                        <span>{{ . }} min read</span>
+                        {{ end }}
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">
+                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">{{ .Title }}</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4">{{ .Summary }}</p>
+                    <a href="{{ .RelPermalink }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                        Read More 
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            {{ end }}
+            
+            {{ template "_internal/pagination.html" . }}
+        </div>
+
+        <aside class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">Categories</h3>
+                <ul class="space-y-2">
+                    {{ range .Site.Taxonomies.categories }}
+                    <li>
+                        <a href="{{ .Page.RelPermalink }}" class="flex justify-between items-center text-gray-700 hover:text-blue-600">
+                            <span>{{ .Page.Title }}</span>
+                            <span class="bg-gray-100 px-2 py-1 rounded-full text-sm">{{ .Count }}</span>
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">Popular Tags</h3>
+                <div class="flex flex-wrap gap-2">
+                    {{ with .Site.Taxonomies.tags }}
+                    {{ range . }}
+                    <a href="{{ .Page.RelPermalink }}" class="px-3 py-1 bg-gray-100 text-sm text-gray-700 rounded-full hover:bg-gray-200">
+                        #{{ .Page.Title }}
+                    </a>
+                    {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+{{ end }}

@@ -1,0 +1,131 @@
+{{ define "main" }}
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+    <div class="container">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-6">Latest Technology News & Insights</h1>
+            <p class="text-xl mb-8">Stay ahead with breaking tech news, in-depth analysis, and expert perspectives</p>
+            <div class="flex justify-center gap-4 mt-8">
+                <a href="/news" class="uppercase font-bold  px-5 py-2  hover:bg-white/20 transition-all">
+                    News
+                </a>
+                <a href="/blog" class="uppercase font-bold  px-5 py-2  hover:bg-white/20 transition-all">
+                    Blog
+                </a>
+                <a href="/gadget" class="uppercase font-bold  px-5 py-2  hover:bg-white/20 transition-all">
+                    Gadgets
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Breaking News Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-8">Breaking News</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {{ range first 3 (where .Site.RegularPages "Section" "news") }}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden">
+                {{ with .Params.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-48 object-cover">
+                {{ end }}
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <time datetime="{{ .Date }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">{{ .Title }}</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">{{ .Summary | truncate 120 }}</p>
+                    <a href="{{ .RelPermalink }}" class="text-blue-600 hover:text-blue-800 font-medium">Read More →</a>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Articles Section -->
+<section class="py-12">
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-8">Featured Articles</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {{ range first 4 (where .Site.RegularPages "Section" "blog") }}
+            <article class="flex bg-white rounded-lg shadow-md overflow-hidden">
+                {{ with .Params.image }}
+                <div class="flex-shrink-0">
+                    <img src="{{ . }}" alt="{{ $.Title }}" class="w-48 h-full object-cover">
+                </div>
+                {{ end }}
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <time datetime="{{ .Date }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                        {{ with .Params.categories }}
+                        <span class="mx-2">•</span>
+                        <span>{{ delimit . ", " }}</span>
+                        {{ end }}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">
+                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">{{ .Title }}</a>
+                    </h3>
+                    <p class="text-gray-600">{{ .Summary | truncate 100 }}</p>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<!-- Latest Gadgets Section -->
+<section class="py-12 bg-gray-100">
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-8">Latest Gadgets</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {{ range first 4 (where .Site.RegularPages "Section" "gadget") }}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                {{ with .Params.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-48 object-cover">
+                {{ end }}
+                <div class="p-4">
+                    <h3 class="text-lg font-bold mb-2">
+                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">{{ .Title }}</a>
+                    </h3>
+                    <div class="flex items-center text-sm text-gray-500 mb-2">
+                        <span class="font-medium text-blue-600">{{ .Params.price }}</span>
+                        {{ with .Params.rating }}
+                        <span class="mx-2">•</span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            {{ . }}
+                        </span>
+                        {{ end }}
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4">{{ .Summary | truncate 80 }}</p>
+                    <a href="{{ .RelPermalink }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Learn More →</a>
+                </div>
+            </article>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-12 bg-gray-50">
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-8">Browse by Category</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {{ range $name, $items := .Site.Taxonomies.categories }}
+            <a href="{{ "/categories/" | relLangURL }}{{ $name | urlize }}" 
+               class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition">
+                <h3 class="text-xl font-bold text-gray-900">{{ $name }}</h3>
+                <p class="text-gray-600 mt-2">{{ len $items }} Articles</p>
+            </a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+
+{{ end }}

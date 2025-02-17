@@ -1,0 +1,63 @@
+{{ define "head" }}
+<link rel="stylesheet" href="{{ "css/article.css" | relURL }}">
+{{ end }}
+
+{{ define "main" }}
+
+
+<article class="container py-8 article-content">
+    <header class="mb-8">
+        <h1 class="text-4xl font-bold mb-4">{{ .Title }}</h1>
+        <div class="flex items-center text-gray-600">
+            <span class="mx-2">Last update > </span>
+            <time datetime="{{ .Date }}">{{ .Date.Format "January 2, 2006" }}</time>
+            {{ with .Params.categories }}
+            <span class="mx-2">•</span>
+            <div class="space-x-2">
+                {{ range . }}
+                <a href="/categories/{{ . | urlize }}" class="text-blue-600 hover:text-blue-800">{{ . }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+    </header>
+
+    {{ with .Params.image }}
+    <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-96 object-cover rounded-lg mb-8">
+    {{ end }}
+
+    <div class="prose prose-lg max-w-none">
+        {{ .Content }}
+    </div>
+    <div class="flex gap-3 mt-8">
+        <span class="inline-flex items-center text-gray-600 font-semibold mr-2 transform hover:translate-x-1 transition-transform duration-200">
+            SHARE <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+        </span>
+        <a href="https://twitter.com/share?url={{ .Permalink }}" target="_blank" 
+           class="">
+            <span>Twitter</span>
+        </a>
+        
+        <a href="https://www.linkedin.com/shareArticle?url={{ .Permalink }}" target="_blank"
+           class="">
+           
+            <span>LinkedIn</span>
+        </a>
+    </div>
+
+    {{ with .Params.tags }}
+    <div class="mt-8 pt-8 border-t">
+        <h2 class="text-xl font-bold mb-4">Tags</h2>
+        <div class="flex flex-wrap gap-2">
+            {{ range . }}
+            <a href="/tags/{{ . | urlize }}" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition">
+                #{{ . }}
+            </a>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+</article>
+{{ end }}

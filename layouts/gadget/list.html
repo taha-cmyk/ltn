@@ -1,0 +1,89 @@
+{{ define "main" }}
+<div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <header class="mb-12 text-center">
+        <h1 class="text-5xl font-bold text-gray-900 mb-4">Latest Gadgets</h1>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Reviews, news and insights about the latest consumer technology and devices</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2">
+            {{ range .Paginator.Pages }}
+            <article class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+                {{ with .Params.image }}
+                <img src="{{ . }}" alt="{{ $.Title }}" class="w-full h-64 object-cover">
+                {{ end }}
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <time datetime="{{ .Date }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+                        {{ if .Params.brand }}
+                        <span class="mx-2">•</span>
+                        <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                            {{ .Params.brand }}
+                        </span>
+                        {{ end }}
+                    </div>
+                    <h2 class="text-2xl font-bold mb-4">
+                        <a href="{{ .RelPermalink }}" class="text-gray-900 hover:text-blue-600">{{ .Title }}</a>
+                    </h2>
+                    <p class="text-gray-600 mb-4">{{ .Summary }}</p>
+                    <div class="flex items-center justify-between">
+                        <a href="{{ .RelPermalink }}" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+                            Read Full Review 
+                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                        {{ if .Params.rating }}
+                        <div class="flex items-center">
+                            <span class="text-yellow-400">
+                                {{ range (seq .Params.rating) }}★{{ end }}
+                            </span>
+                            <span class="text-gray-400">
+                                {{ range (seq (sub 5 .Params.rating)) }}★{{ end }}
+                            </span>
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+            </article>
+            {{ end }}
+            
+            {{ template "_internal/pagination.html" . }}
+        </div>
+
+        <aside class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h3 class="text-xl font-bold mb-4">Browse by Brand</h3>
+                <ul class="space-y-2">
+                    {{ range .Site.Taxonomies.brands }}
+                    <li>
+                        <a href="{{ .Page.RelPermalink }}" class="flex justify-between items-center text-gray-700 hover:text-blue-600">
+                            <span>{{ .Page.Title }}</span>
+                            <span class="bg-gray-100 px-2 py-1 rounded-full text-sm">{{ .Count }}</span>
+                        </a>
+                    </li>
+                    {{ end }}
+                </ul>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">Price Ranges</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a href="/gadgets/price-range/budget" class="text-gray-700 hover:text-blue-600">Budget (Under $200)</a>
+                    </li>
+                    <li>
+                        <a href="/gadgets/price-range/mid-range" class="text-gray-700 hover:text-blue-600">Mid-Range ($200-$500)</a>
+                    </li>
+                    <li>
+                        <a href="/gadgets/price-range/premium" class="text-gray-700 hover:text-blue-600">Premium ($500-$1000)</a>
+                    </li>
+                    <li>
+                        <a href="/gadgets/price-range/luxury" class="text-gray-700 hover:text-blue-600">Luxury ($1000+)</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</div>
+{{ end }}
